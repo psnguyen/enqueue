@@ -29,5 +29,8 @@ fclose($writefile);
 //create a new object for requests
 $newRequest = array{
   
+
+}
   
+
 ?>
