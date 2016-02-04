@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+  .alert{
+    display: none;
+}
+</style>
+
   <title>Student Session Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,21 +35,45 @@
       			
      			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Request Type
      				<span class="caret"></span></button>
- 				 <ul class="dropdown-menu">
+ 				  <ul class="dropdown-menu">
     				<li><a href="#">Demo</a></li>
     				<li><a href="#">Clarification</a></li>
    				 	<li><a href="#">General Error</a></li>
+            <li><a href="#">Other</a></li>
   				</ul>
-  				<button type="submit" class="btn btn-default">Submit</button>
-			</div>
- 
+          <button onclick="sendToQueue()" type="submit" class="btn btn-default">Submit</button>
+          <input type="text" class="form-control" id="description" placeholder="Describe your problem">
+			  </div>
      	</form>
- 	 </div>
+ 	  </div>
   	
-  	<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#removemessage">Remove Request</button>
-
+  	<button type="alertclose" class="btn btn-primary" data-toggle="collapse" data-target="#removemessage">Remove Request</button>
+    <div class="alert alert-success fade in">
+      <a href="#" class="close" data-dismiss"alert" aria-label="close">&times;</a>
+      Request removed successfully.
+    </div>
   </div>
 </div>
+
+<script>
+
+  function sendToQueue()
+  {
+
+  }
+
+  function removeSuccess()
+  {
+    var removeMessage = "Request successfully removed.";
+    document.getElemendById("removeSuccess").innerHTML = removeMessage;
+  }
+
+  <!--$(document).ready(function(){
+    $('alertclose').click(function(){
+      $('.alert').show()
+    })
+  });-->
+</script>
 
 </body>
 </html>
