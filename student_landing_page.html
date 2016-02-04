@@ -19,9 +19,16 @@
     <div class="form-group">
   		<label for="sessionid">Session ID:</label>
   		<input type="text" class="form-control" id="sessionid">
-	</div>
+      <input id = "submitButton" type="submit" class="btn btn-primary" value="Submit">
+	  </div>
   </div>
 </div>
+
+<script>
+  document.getElementById("submitButton").onclick = function() {
+    location.href = "file:///C:/Users/Michael/Documents/SCU/Senior%20Design/enqueue/student_session_page.html"
+  };
+</script>
 
 </body>
 </html>
