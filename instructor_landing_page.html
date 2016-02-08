@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+<form action = "unique_id.php" method = "post">
 <div class="container" align = "center">
   <h2>Create a Class Session</h2>
   <p>Click here to create a new class session</p>
@@ -18,15 +18,13 @@
   <div id="create" class="collapse">
     <div class="form-group">
   		<label for="classname">Class Name:</label>
-  		<input type="text" class="form-control" id="classname">
-      <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
+  		<input type="text" class="form-control" id="classname" name = "classname"/>
+      <input type = "submit">
 	</div>
   </div>
 </div>
-<script>
-  document.getElementById("submitButton").onclick = function() {
-    location.href = "file:///C:/Users/Michael/Documents/SCU/Senior%20Design/enqueue/instructor_session_page.html"
-  };
-</script>
+</form>
+
+
 </body>
 </html>
