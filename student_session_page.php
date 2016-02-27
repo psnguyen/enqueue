@@ -1,7 +1,14 @@
 <?php
 session_start();
 include_once("pdo_mysql.php");
-	
+	if(isset($_POST['submitBtn'])){
+			$_SESSION['classID'] = $_POST['sessionid'];
+			$classID = $_POST['sessionid'];
+			$_SESSION['userName'] = $_POST['studName'];
+			$userName = $_SESSION['userName'];
+			$_SESSION['userEmail'] = $_POST['studEmail'];
+			$userEmail = $_SESSION['userEmail'];
+	}
 	//if student submits a request
 	if(isset($_POST['submitted'])){
 
@@ -21,11 +28,15 @@ include_once("pdo_mysql.php");
 		$descr = $_POST['description'];
 		$classID = $_SESSION['classID'];
 	//	date_default_timezone_set('America/Los_Angeles');
-		$time = time();
+		//$time = time();
 		$className = "COEN175";
 		$instrName = "Nate";
 		$isSolved =1;
-		$NewRequestQuery = "INSERT INTO `enqueue` (`classID`, `className`, `instructorName`, `studentName`,`reqDescrip`, `timeIn`, `timeSpent`, `isSolved`) VALUES ('$classID', 'COEN175', 'Nate', '$studentName', '$descr', now(),'0', '0')";
+		
+		$countQuery = "SELECT * FROM `enqueue` WHERE `classID` = '$classID'";
+		$getCountQuery = pdo_query($countQuery);
+		$row_count = pdo_num_rows($getCountQuery);
+		$NewRequestQuery = "INSERT INTO `enqueue` (`classID`, `reqCount`, `className`, `instructorName`, `studentName`,`reqDescrip`, `timeIn`, `timeSpent`, `isSolved`) VALUES ('$classID', '$row_count + 1', 'none', 'none', '$studentName', '$descr', now(),'0', '0')";
 	
 		if(pdo_query($NewRequestQuery)){
 			//pdo_close($database);	
@@ -54,7 +65,7 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
 	  if(!pdo_select_db($database, $conn))
  	   die('Error selecting '.$database.'. '.pdo_error());
 
-	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1' AND SET `TimeOut' = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
+	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
 	
 	 if(strcmp($_SESSION['userName'], $deleteName) == 0){ 
 		  
