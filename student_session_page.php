@@ -1,12 +1,10 @@
 <?php
 session_start();
 include_once("pdo_mysql.php");
-if(isset($_POST['submitBtn'])){
+//if(isset($_POST['submitBtn'])){
 //	$classID = $_POST['sessionid'];
 //	echo $classID;
-	$_SESSION['classID']  = $_POST['sessionid'];		
-}
-//	date_default_timezone_set("America/Los_Angeles");
+//	$_SESSION['classID']  = $_POST['sessionid'];		
 	if(isset($_POST['submitted'])){
 
 	//include_once("pdo_mysql.php");
@@ -32,7 +30,6 @@ if(isset($_POST['submitBtn'])){
 		$NewRequestQuery = "INSERT INTO `enqueue` (`classID`, `className`, `instructorName`, `studentName`,`reqDescrip`, `timeIn`, `timeSpent`, `isSolved`) VALUES ('$classID', 'COEN175', 'Nate', '$studentName', '$descr', now(),'0', '0')";
 
 		if(pdo_query($NewRequestQuery)){
-			echo'insert complete';
 			//pdo_close($database);	
 		}
 
@@ -42,6 +39,7 @@ if(isset($_POST['submitBtn'])){
 			die(pdo_error());
 		}
 	}
+//}
 ?>
 <html lang="en">
 <head>
@@ -63,14 +61,14 @@ if(isset($_POST['submitBtn'])){
 
 <div class="container" align = "center">
   <h1>enQueue</h1>
-  <h4>Class Listing: </h4>
+  <h4>Class Listing: <?php echo $_SESSION['classID']; ?> </h4>
   <div class = "btn-group-vertical">
  	 <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#addrequest">Add Request</button>
  	 <div id ="addrequest" class ="collapse">
  	 	<form role="form" method ="post" action = "student_session_page.php">
     		<div class="form-group">
       			
-     			 <input type="text" class="form-control" id="name" name = "name" placeholder="Enter name">
+			<input type="text" class="form-control" id="name" name = "name" value = "<?php echo $_SESSION['userName']; ?>">
     		</div>
     		<div class="dropdown">
       			
@@ -80,23 +78,16 @@ if(isset($_POST['submitBtn'])){
      	</form>
  	  </div>
   	
-  	<button type="alertclose" class="btn btn-primary" data-toggle="collapse" data-target="#removemessage">Remove Request</button>
+	<input type="button" value = "Remove Request" onclick = "delRow()"/>
     <div class="alert alert-success fade in">
       <a href="#" class="close" data-dismiss"alert" aria-label="close">&times;</a>
       Request removed successfully.
     </div>
   </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script $('#classTable').on('click', 'input[type="button"]', function () {
-    $(this).closest('tr').remove();
-});>
-</script>
 <table id = "classTable" class = "table table-striped table-hover">
 	<thead>
 		<tr>
-			<th> ID </th>
-			<th> Class Name </th>
-			<th> Instructor Name </th>
+			<th> Select </th>
 			<th> Student Name </th>
 			<th> Request Description </th>
 			<th> Time In </th>
@@ -106,6 +97,14 @@ if(isset($_POST['submitBtn'])){
 	<tbody>
 		<?php
 			
+	if(isset($_POST['submitBtn'])){
+			$_SESSION['classID'] = $_POST['sessionid'];
+			$classID = $_POST['sessionid'];
+			$_SESSION['userName'] = $_POST['studName'];
+			$userName = $_SESSION['userName'];
+			$_SESSION['userEmail'] = $_POST['studEmail'];
+			$userEmail = $_SESSION['userEmail'];
+	}
 			$host = 'dbserver.engr.scu.edu';
 			$username = 'pnguyen';
 			$password = '00000949559';
@@ -117,18 +116,15 @@ if(isset($_POST['submitBtn'])){
 				die('Error selecting '.$database.'. '.pdo_error());
 			
 			$classID = $_SESSION['classID'];
-			$execItems = pdo_query("SELECT classID, className, instructorName, studentName, reqDescrip, timeIn FROM `enqueue` WHERE classID = $classID");
+			$execItems = pdo_query("SELECT classID, studentName, reqDescrip, timeIn FROM `enqueue` WHERE classID = $classID and studentName != 'blank' and isSolved = 'FALSE'");
 			
 			while($row = pdo_fetch_array($execItems, MYSQL_ASSOC)){
 				echo "
-						<tr>
-							<td>".$row['classID']."</td>	
-							<td>".$row['className']."</td>
-							<td>".$row['instructorName']."</td>
+					<tr>
+							<td> <input type=\"checkbox\" name=\"chk\"/></td>
 							<td>".$row['studentName']."</td>
 							<td>".$row['reqDescrip']."</td>
 							<td>".$row['timeIn']."</td>
-							<td> <input type = \"button\" value = \"Delete\" /> </td>
 						</tr>
 						";
 
@@ -139,24 +135,30 @@ if(isset($_POST['submitBtn'])){
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script $('#classTable').on('click', 'input[type="button"]', function () {
-    $(this).closest('tr').remove();
-});>
-</script>
 <script>
+function test(){
+	alert("test");
+}
 
-  function removeSuccess()
-  {
-    var removeMessage = "Request successfully removed.";
-    document.getElemendById("removeSuccess").innerHTML = removeMessage;
-  }
+function delRow(){
+	  try{
+		var table = document.getElementById("classTable");
+		var rowCount = table.rows.length;
+		var checkList = window.document.getElementsByName('chk');
+		for(var j =0; j<checkList.length; j++){
+			if(checkList[j].checked == true){
+				table.deleteRow(j+1);
+				rowCount--;
+				j--;
+			}
+		}
+  	
+	}
+	catch(e){
+		alert(e);
+	}
+}
 
-  <!--$(document).ready(function(){
-    $('alertclose').click(function(){
-      $('.alert').show()
-    })
-  });-->
 </script>
 
 </body>
