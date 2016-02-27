@@ -1,10 +1,8 @@
 <?php
 session_start();
 include_once("pdo_mysql.php");
-//if(isset($_POST['submitBtn'])){
-//	$classID = $_POST['sessionid'];
-//	echo $classID;
-//	$_SESSION['classID']  = $_POST['sessionid'];		
+	
+	//if student submits a request
 	if(isset($_POST['submitted'])){
 
 	//include_once("pdo_mysql.php");
@@ -28,7 +26,7 @@ include_once("pdo_mysql.php");
 		$instrName = "Nate";
 		$isSolved =1;
 		$NewRequestQuery = "INSERT INTO `enqueue` (`classID`, `className`, `instructorName`, `studentName`,`reqDescrip`, `timeIn`, `timeSpent`, `isSolved`) VALUES ('$classID', 'COEN175', 'Nate', '$studentName', '$descr', now(),'0', '0')";
-
+	
 		if(pdo_query($NewRequestQuery)){
 			//pdo_close($database);	
 		}
@@ -40,6 +38,34 @@ include_once("pdo_mysql.php");
 		}
 	}
 //}
+
+if(isset($_GET["w1"]) && isset($_GET["w2"])){
+		$deleteName = $_GET["w1"];
+		$deleteDescr = $_GET["w2"];
+
+ 	 $host = 'dbserver.engr.scu.edu';
+ 	 $username = 'pnguyen';
+ 	 $password = '00000949559';
+ 	 $database = 'sdb_pnguyen';
+
+ 	 if(!$conn = pdo_connect("$host", $username, $password))
+  	   die('Error connecting to '.host.'. '.pdo_error());
+
+	  if(!pdo_select_db($database, $conn))
+ 	   die('Error selecting '.$database.'. '.pdo_error());
+
+	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1' WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
+	
+	 if(strcmp($_SESSION['userName'], $deleteName) == 0){ 
+		  
+	 	 if(pdo_query($newQuery)){
+		  }
+		  else{
+	  		echo'update not complete';
+			die(pdo_error());
+		  }
+	}
+  }
 ?>
 <html lang="en">
 <head>
@@ -136,10 +162,6 @@ include_once("pdo_mysql.php");
 </div>
 
 <script>
-function test(){
-	alert("test");
-}
-
 function delRow(){
 	  try{
 		var table = document.getElementById("classTable");
@@ -147,9 +169,14 @@ function delRow(){
 		var checkList = window.document.getElementsByName('chk');
 		for(var j =0; j<checkList.length; j++){
 			if(checkList[j].checked == true){
+				var x = document.getElementById("classTable").rows[j+1].cells;
+				xVal1 = x[1].innerHTML;
+				xVal2 = x[2].innerHTML;
+				
 				table.deleteRow(j+1);
 				rowCount--;
 				j--;
+				window.location.href = "student_session_page.php?w1=" + xVal1 + "&w2=" + xVal2;
 			}
 		}
   	
@@ -158,6 +185,12 @@ function delRow(){
 		alert(e);
 	}
 }
+
+function test(){
+	alert("test");
+}
+
+
 
 </script>
 
