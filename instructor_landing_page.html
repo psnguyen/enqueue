@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Instructor Landing Page</title>
@@ -11,21 +12,20 @@
 <body>
 <form action = "instructor_session_page.php" method = "post">
 <div class="container" align = "center">
-  <h2>Create or Join a Class Session</h2>
-  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#create">Create Session</button>
-  <div id="create" class="collapse">
+  <h2>Join a Class Session</h2>
+  <br>
     <div class="form-group">
-  		<label for="classname">Class Name:</label>
-  		<input type="text" class="form-control" id="classname" name = "classname"/>
-      <input type = "submit" name = "instructorCreateBtn"/>
-	</div>
-  </div>
-  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#join">Join Existing Session</button>
-   <div id="join" class="collapse">
-    <div class="form-group">
+    	<p> Select a Lab Session</p>
   		<label for="joinClassId">Class ID:</label>
-  		<input type="number" class="form-control" id="joinClass" name = "joinClass"/>
-      <input type = "submit" name = "instructorJoinBtn"/>
+     		<select name = "joinClass" id = "joinClass">
+			<option value = "30952"> COEN 11L W 2:15</option>
+			<option value = "30953"> COEN 11L W 5:15 </option>
+			<option value = "30968"> COEN 11L R 2:15</option>
+			<option value = "30964"> COEN 11L R 9:15 </option>
+			<option value = "30998"> COEN 12L M 2:15 </option>
+			<option value = "32296"> COEN 20L M 2:15 </option>
+		</select><br><br>
+	   	<input type = "submit" name = "instructorJoinBtn"/>
 	</div>
   </div>
 </div>

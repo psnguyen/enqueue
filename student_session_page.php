@@ -54,7 +54,7 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
 	  if(!pdo_select_db($database, $conn))
  	   die('Error selecting '.$database.'. '.pdo_error());
 
-	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1' WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
+	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1' AND SET `TimeOut' = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
 	
 	 if(strcmp($_SESSION['userName'], $deleteName) == 0){ 
 		  
@@ -89,8 +89,8 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
   <h1>enQueue</h1>
   <h4>Class Listing: <?php echo $_SESSION['classID']; ?> </h4>
   <div class = "btn-group-vertical">
- 	 <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#addrequest">Add Request</button>
- 	 <div id ="addrequest" class ="collapse">
+ 	
+ 	
  	 	<form role="form" method ="post" action = "student_session_page.php">
     		<div class="form-group">
       			
@@ -102,7 +102,7 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
 		  <input type = "submit" name = "submitted"/>	 
 		 </div>
      	</form>
- 	  </div>
+ 	
   	
 	<input type="button" value = "Remove Request" onclick = "delRow()"/>
     <div class="alert alert-success fade in">

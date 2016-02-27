@@ -22,6 +22,7 @@
 <?php
   session_start();
   include_once("pdo_mysql.php");
+  /*
   if(isset($_POST['instructorCreateBtn'])){
  	 $host = 'dbserver.engr.scu.edu';
  	 $username = 'pnguyen';
@@ -91,7 +92,7 @@
 	}
 
   }
-
+*/
   //function setDeleteFlag(){
   	if(isset($_GET["w1"]) && isset($_GET["w2"])){
 		$deleteName = $_GET["w1"];
