@@ -9,7 +9,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="20">
 </head>
 
 <body>
@@ -42,7 +42,9 @@
 
 	  if(!pdo_select_db($database, $conn))
  	   die('Error selecting '.$database.'. '.pdo_error());
-
+		
+	  $deleteName = pdo_escape_string($deleteName);
+	  $deleteDescr = pdo_escape_string($deleteDescr);
 	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
 	  if(pdo_query($newQuery)){
 	  }
@@ -233,7 +235,9 @@ function saveOrder() {
 
 </script>
 <center>
-<a href="logout.php">Exit Session</a>	
+<a href="logout.php">Exit Session</a><br>
+<a href ="index.html">Analyze 1</a>
+<a href="index2.html">Analyze 2</a>	
 <br><br>	
 <p>We appreciate you guys using our enQueue prototype! Please take 2 minutes and click <a href ="http://goo.gl/forms/mQqHIL0SjS">here</a> to fill out a very brief survey about your experience. Thank you!
 </center>

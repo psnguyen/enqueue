@@ -66,6 +66,8 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
 	  if(!pdo_select_db($database, $conn))
  	   die('Error selecting '.$database.'. '.pdo_error());
 
+	  $deleteName = pdo_escape_string($deleteName);
+	  $deleteDescr = pdo_escape_string($deleteDescr);
 	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
 	
 	 if(strcmp($_SESSION['userName'], $deleteName) == 0){ 
