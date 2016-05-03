@@ -29,9 +29,8 @@
 }
   //function setDeleteFlag(){
   if(isset($_GET["w1"]) && isset($_GET["w2"])){
-		$deleteName = $_GET["w1"];
-		$deleteDescr = $_GET["w2"];
-
+	$deleteName = $_GET["w1"];
+	$deleteDescr = $_GET["w2"];
  	 $host = 'dbserver.engr.scu.edu';
  	 $username = 'pnguyen';
  	 $password = '00000949559';
@@ -45,7 +44,7 @@
 		
 	  $deleteName = pdo_escape_string($deleteName);
 	  $deleteDescr = pdo_escape_string($deleteDescr);
-	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
+	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` LIKE '%$deleteDescr%' AND `studentName` LIKE '%$deleteName%'";
 	  if(pdo_query($newQuery)){
 	  }
 	  else{
@@ -235,9 +234,20 @@ function saveOrder() {
 
 </script>
 <center>
+<!--
 <a href="logout.php">Exit Session</a><br>
 <a href ="index.html">Analyze 1</a>
-<a href="index2.html">Analyze 2</a>	
+<a href="index3.html">Analyze 2</a>
+-->
+<br>
+<p>View Class Statistics</p>
+<select onChange="window.location.href=this.value">
+   	<option selected="selected" disabled = "disabled">Select a Method of Analysis</option>
+	 <option value="index.html"># of Requests in Each Category</option>
+    <option value="index3.html">Amount of Time Spent Receiving Assistance</option>
+</select>
+<br>
+<a href = "logout.php">Exit Session</a>
 <br><br>	
 <p>We appreciate you guys using our enQueue prototype! Please take 2 minutes and click <a href ="http://goo.gl/forms/mQqHIL0SjS">here</a> to fill out a very brief survey about your experience. Thank you!
 </center>

@@ -9,47 +9,6 @@ if(isset($_POST['submitBtn'])){
 		$_SESSION['userEmail'] = $_POST['studEmail'];
 		$userEmail = $_SESSION['userEmail'];
 }
-/*
-//if student submits a request
-if(isset($_POST['submitted'])){
-
-	//include_once("pdo_mysql.php");
-	$host = 'dbserver.engr.scu.edu';
-	$username = 'pnguyen';
-	$password = '00000949559';
-	$database = 'sdb_pnguyen';
-
-	if(!$conn = pdo_connect("$host", $username, $password))
-		die('Error connecting to '.host.'.'.pdo_error());
-	if(!pdo_select_db($database, $conn))
-		die('Error selecting '.$database.'. '.pdo_error());
-
-
-//		$studentName = $_POST['name'];
-	$studentName = $_SESSION['userName'];
-	$descr = $_POST['description'];
-	$category = $_POST['category'];
-	$classID = $_SESSION['classID'];
-	$className = "COEN175";
-	$instrName = "Nate";
-	$isSolved =1;
-		
-	$countQuery = "SELECT * FROM `enqueue` WHERE `classID` = '$classID'";
-	$getCountQuery = pdo_query($countQuery);
-	$row_count = pdo_num_rows($getCountQuery);
-	$NewRequestQuery = "INSERT INTO `enqueue` (`classID`, `reqCount`, `order`, `className`, `instructorName`, `studentName`,`reqDescrip`, `category`, `timeIn`, `timeSpent`, `isSolved`) VALUES ('$classID', '$row_count', '100', 'none', 'none', '$studentName', '$descr', '$category', now(),'0', '0')";
-	
-		if(pdo_query($NewRequestQuery)){
-
-		}
-
-		
-		else{
-			echo 'insert not completed';
-			die(pdo_error());
-		}
-	}
- */
 
 if(isset($_GET["w1"]) && isset($_GET["w2"])){
 		$deleteName = $_GET["w1"];
@@ -68,7 +27,7 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
 
 	  $deleteName = pdo_escape_string($deleteName);
 	  $deleteDescr = pdo_escape_string($deleteDescr);
-	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` = '$deleteDescr' AND `studentName` = '$deleteName'";
+	  $newQuery = "UPDATE `enqueue` SET `isSolved` = '1', `TimeOut` = now() WHERE `reqDescrip` LIKE '%$deleteDescr%' AND `studentName` LIKE '%$deleteName%'";
 	
 	 if(strcmp($_SESSION['userName'], $deleteName) == 0){ 
 		  
@@ -202,89 +161,8 @@ if(isset($_GET["w1"]) && isset($_GET["w2"])){
   					  </div>
 				  </div>
 <br> <br> 
-<!--
-		<form role="form" method ="post" id = "requestForm" action = "post_request.php">
-    		<div class="form-group">
-      			
-				Category:	<br>
-			
-				<select id = "category" name = "category">
-						<option value = "Clarification"> Clarification </option>
-						<option value = "Conceptual"> Conceptual </option>
-						<option value = "Logical Error"> Logical Error </option>
-						<option value = "Compiling Error"> Compiling Error </option>
-						<option value = "Runtime Error"> Runtime Error </option>
-						<option value ="Demo"> Demo </option> 
-						<option value = "Other"> Other </option>	
-				</select>
-    		</div>
-    		<div class="dropdown">
-      			
-			Description: <br>
-			<textarea rows = "4" cols = "25" name = "description" id = "description"> </textarea><br>
-		  <input type = "submit" name = "submitted" value = "Add Request"/>	 
-		 </div>
-     	</form>
- 	
 
-
--->
   </div>
-<!--
-<table id = "classTable" class = "pure-table pure-table-bordered">
-	<thead>
-		<tr>
-			<th> Select </th>
-			<th> Student Name </th>
-			<th> Request Description </th>
-			<th> Type </th>
-			<th> Time In </th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<?php
-/*			
-	if(isset($_POST['submitBtn'])){
-			$_SESSION['classID'] = $_POST['sessionid'];
-			$classID = $_POST['sessionid'];
-			$_SESSION['userName'] = $_POST['studName'];
-			$userName = $_SESSION['userName'];
-			$_SESSION['userEmail'] = $_POST['studEmail'];
-			$userEmail = $_SESSION['userEmail'];
-	}
-			$host = 'dbserver.engr.scu.edu';
-			$username = 'pnguyen';
-			$password = '00000949559';
-			$database = 'sdb_pnguyen';
-
-			if(!$conn = pdo_connect("$host", $username, $password))
-				die('Error connecting to '.host.'.'.pdo_error());
-			if(!pdo_select_db($database, $conn))
-				die('Error selecting '.$database.'. '.pdo_error());
-			
-			$classID = $_SESSION['classID'];
-			$execItems = pdo_query("SELECT classID, studentName, reqDescrip, category, timeIn FROM `enqueue` WHERE classID = $classID and studentName != 'blank' and isSolved = 'FALSE' ORDER BY `order`");
-			
-			while($row = pdo_fetch_array($execItems, MYSQL_ASSOC)){
-				echo "
-					<tr>
-							<td> <input type=\"checkbox\" name=\"chk\"/></td>
-							<td>".$row['studentName']."</td>
-							<td>".$row['reqDescrip']."</td>
-							<td>".$row['category']."</td>
-							<td>".$row['timeIn']."</td>
-						</tr>
-						";
-
-				}
-*/
-?>	
-	</tbody>
-</table>
-
-<p>*Students may only delete their own requests!</p>
--->	
 <input type="button" value = "Remove Request" onclick = "delRow()"/>
 
  <form action = "http://students.engr.scu.edu/~pnguyen/enqueue_master/student_session_page.php"><input type= "submit"  value="Refresh"></form> 	

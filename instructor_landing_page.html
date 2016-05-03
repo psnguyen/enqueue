@@ -1,37 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Instructor Landing Page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</head>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Instructor Landing Page</title>
+    
+    
+    <link rel="stylesheet" href="css/reset.css">
 
-<body>
-<form action = "instructor_session_page.php" method = "post">
-<div class="container" align = "center">
-  <h2>Join a Class Session</h2>
-  <br>
-    <div class="form-group">
-    	<p> Select a Lab Session</p>
-  		<label for="joinClassId">Class ID:</label>
-     		<select name = "joinClass" id = "joinClass">
-			<option value = "30952"> COEN 11L W 2:15</option>
-			<option value = "30953"> COEN 11L W 5:15 </option>
-			<option value = "30968"> COEN 11L R 2:15</option>
-			<option value = "30964"> COEN 11L R 9:15 </option>
-			<option value = "30998"> COEN 12L M 2:15 </option>
-			<option value = "32296"> COEN 20L M 2:15 </option>
-			<option value = "30959"> COEN 146L W 2:15</option>
-		</select><br><br>
-	   	<input type = "submit" name = "instructorJoinBtn"/>
-	</div>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+        <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    
+    
+  </head>
+
+  <body>
+<!--
+    <div class='menu'>
+  <span class='toggle'>
+    <i></i>
+    <i></i>
+    <i></i>
+  </span>
+  <div class='menuContent'>
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  
+  </div>
+</div>
+-->
+<div class='sectionHeroImg'>
+  <h1>
+    enQueue
+    <span>
+      
+      <p>
+        
+      </p>
+    </span>
+    
+  </h1>
+  <button type="button" class = "modalbutton pure-button-primary" data-toggle="modal" data-target="#myModal">Join Class Session</button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" align = "left">
+ 
+    <form action = "instructor_session_page.php" method = "post">
+    <div class="container" align = "left">
+      
+      <p style="margin-left:15%" > Please Select Your Lab Section </p>
+       <div class="form-group">
+          <label for="joinClassID" style="margin-left:13%">Class ID:</label>
+        <select name ="joinClass" id = "joinClass">
+         <!-- <option value = "30952">COEN 11L Wednesday 2:15</option>
+          <option value = "30953"> COEN 11L Wednesday 5:15</option>
+		  --><option value = "30968"> COEN 11L Thursday 2:15 </option>
+          <!--<option value = "30964"> COEN 11L Thursday 9:15</option>
+          <option value = "30998"> COEN 12L Monday 2:15 </option>
+          <option value = "32296"> COEN 20L Monday 2:15 </option>
+		  <option value = "30959"> COEN 146L Wednesday 2:15</option>
+      	--> 
+		  <option value = "35042"> COEN 12L Wednesday 2:15 </option>
+		  <option value = "35076"> COEN 12L Thursday 2:15</option> 
+	  	  <option value = "35043"> COEN 20L Thursday 9:15</option>
+	  </select>
+        <br>
+
+      <input style="margin-left:22%" class = "pure-button-primary" name = "instructorJoinBtn" type="submit"  class="btn btn-primary">
+      </div>
   </div>
 </div>
 </form>
 
+       </div>
+      </div>
+      
+    </div>
+  </div>
 
-</body>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src="js/index.js"></script>
+
+    
+    
+    
+  </body>
 </html>
